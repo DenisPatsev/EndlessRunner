@@ -5,15 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class GameOverScreen : MonoBehaviour
 {
+    [SerializeField] private Player _player;
+
     private CanvasGroup _gameOverGroup;
+
+    private void Awake()
+    {
+        _gameOverGroup = GetComponent<CanvasGroup>();
+    }
 
     private void Start()
     {
-        _gameOverGroup = GetComponent<CanvasGroup>();
         _gameOverGroup.alpha = 0;
     }
 
-    public void ShowScreen()
+    private void OnEnable()
+    {
+        _player.Death += ShowScreen;
+    }
+
+    private void OnDisable()
+    {
+        _player.Death -= ShowScreen;
+    }
+
+    private void ShowScreen()
     {
         _gameOverGroup.alpha = 1;
         Time.timeScale = 0;

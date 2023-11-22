@@ -17,11 +17,19 @@ public class PlayerMover : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.UpArrow) && transform.position.y < _borderline)
         {
-            transform.Translate(new Vector3(0, _step * _speed * Time.deltaTime, 0));
+            _step = 1;
+            Move();
         }
         else if (Input.GetKey(KeyCode.DownArrow) && transform.position.y > -_borderline)
         {
-            transform.Translate(new Vector3(0, -_step * _speed * Time.deltaTime, 0));
+            _step = -1;
+            Move();
         }
+
+    }
+
+    private void Move()
+    {
+        transform.Translate(new Vector3(0, _step * _speed * Time.deltaTime, 0));
     }
 }

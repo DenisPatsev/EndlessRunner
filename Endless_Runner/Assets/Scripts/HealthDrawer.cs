@@ -9,9 +9,20 @@ public class HealthDrawer : MonoBehaviour
     private void Start()
     {
         _bar.maxValue = _player.Health;
+        DrawCurrentHealth();
     }
 
-    public void DrawCurrentHealth()
+    private void OnEnable()
+    {
+        _player.TakeHit += DrawCurrentHealth;
+    }
+
+    private void OnDisable()
+    {
+        _player.TakeHit -= DrawCurrentHealth;
+    }
+
+    private void DrawCurrentHealth()
     {
         _bar.value = _player.Health;
     }

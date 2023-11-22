@@ -4,15 +4,11 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _health;
-    [SerializeField] private UnityEvent _takeDamage;
-    [SerializeField] private UnityEvent _death;
+
+    public UnityAction TakeHit;
+    public UnityAction Death;
 
     public float Health => _health;
-
-    private void Start()
-    {
-        _takeDamage.Invoke();
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -20,7 +16,7 @@ public class Player : MonoBehaviour
         {
             collision.gameObject.SetActive(false);
             TakeDamage(enemy.Damage);
-            _takeDamage.Invoke();
+            TakeHit.Invoke();
         }
     }
 
@@ -36,6 +32,6 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        _death.Invoke();
+        Death.Invoke();
     }
 }
